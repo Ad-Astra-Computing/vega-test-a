@@ -34,6 +34,7 @@
         bignar = pkgs.runCommand "vega-bignar-probe" { } ''
           mkdir -p "$out"
           cp -r ${pkgs.hello} "$out/hello"
+          echo v2 > "$out/marker"
         '';
         default = pkgs.figlet;
       };
