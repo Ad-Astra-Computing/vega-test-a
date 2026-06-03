@@ -28,6 +28,13 @@
           mkdir -p "$out"
           date +%s%N > "$out/nondeterministic.txt"
         '';
+        # A larger, deterministic output: it copies a package in, so its closure
+        # pulls real dependencies (a few tens of MB). Exercises the reproduction
+        # worker's chunked closure retrieval on a non-trivial closure.
+        bignar = pkgs.runCommand "vega-bignar-probe" { } ''
+          mkdir -p "$out"
+          cp -r ${pkgs.hello} "$out/hello"
+        '';
         default = pkgs.figlet;
       };
     };
